@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from utils.data_loader import get_imagenet_data
+from utils.data_loader import get_cifar10_data # get_imagenet_data
 from utils.config import config
 import copy
 import foolbox as fb
@@ -16,7 +16,7 @@ def adversarial_training(model):
     performance_constraint = attack_conf.get('performance_constraint')
     epsilon = attack_conf.get('epsilon')
 
-    train_loader, test_loader = get_imagenet_data()
+    train_loader, test_loader = get_cifar10_data()
     model = copy.deepcopy(model)
     model.train()
 
@@ -62,5 +62,5 @@ def adversarial_training(model):
         if accuracy < performance_constraint:
             print("Performance constraint breached. Stopping adversarial training.")
             break
-        model.train()
+        # model.train()
     return model

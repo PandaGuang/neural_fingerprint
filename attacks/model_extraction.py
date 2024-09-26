@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from utils.data_loader import get_imagenet_data
+from utils.data_loader import get_cifar10_data # get_imagenet_data
 from utils.config import config
 import copy
 
@@ -16,7 +16,7 @@ def model_extraction(original_model):
     student_model = copy.deepcopy(original_model)
     student_model.train()
 
-    train_loader, test_loader = get_imagenet_data()
+    train_loader, test_loader = get_cifar10_data()
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(student_model.parameters(), lr=learning_rate)
 

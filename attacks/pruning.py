@@ -1,6 +1,6 @@
 import torch
 import torch.nn.utils.prune as prune
-from utils.data_loader import get_imagenet_data
+from utils.data_loader import get_cifar10_data # get_imagenet_data
 from utils.config import config
 import copy
 
@@ -10,7 +10,7 @@ def prune_model(model):
     pruning_amount = attack_conf.get('pruning_amount')
     performance_constraint = attack_conf.get('performance_constraint')
 
-    train_loader, test_loader = get_imagenet_data()
+    train_loader, test_loader = get_cifar10_data()
     model = copy.deepcopy(model)  # Avoid modifying original model
 
     # Apply global unstructured pruning

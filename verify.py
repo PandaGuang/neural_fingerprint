@@ -36,7 +36,7 @@ def main():
     target_class = fingerprint_conf.get('target_class')
 
     # Load the model
-    model_architectures = config.get('models', 'architectures', default=['resnet50'])
+    model_architectures = config.get('models', 'architectures', default=['resnet18'])
     if len(model_architectures) == 1:
         model_arch = model_architectures[0]
     else:

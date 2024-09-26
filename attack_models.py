@@ -22,29 +22,60 @@ def main():
     parser.add_argument('--attack', type=str, required=True, choices=['finetune', 'pruning', 'pruning_finetune', 'model_extraction', 'adversarial_training'], help='Attack type')
     args = parser.parse_args()
 
+    model_conf = config.get('models')
     model_name = args.model
-    attack_type = args.attack
-
-    # Load the protected model
     model = load_pretrained_model(model_name)
+    target_class = config.get('fingerprint', 'target_class')
 
-    # Apply the specified attack
-    if attack_type == 'finetune':
-        attacked_model = finetune_model(model)
-    elif attack_type == 'pruning':
-        attacked_model = prune_model(model)
-    elif attack_type == 'pruning_finetune':
-        attacked_model = prune_and_finetune(model)
-    elif attack_type == 'model_extraction':
-        attacked_model = model_extraction(model)
-    elif attack_type == 'adversarial_training':
-        attacked_model = adversarial_training(model)
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model.to(device)
+
+    if args.attack == 'finetune':
+        attack_params = config.get('attacks', 'finetune')
+        attacked_model = finetune_model(
+            model,
+            epochs=attack_params.get('epochs'),
+            learning_rate=attack_params.get('learning_rate'),
+            performance_constraint=attack_params.get('performance_constraint')
+        )
+    elif args.attack == 'pruning':
+        attack_params = config.get('attacks', 'pruning')
+        attacked_model = prune_model(
+            model,
+            pruning_amount=attack_params.get('pruning_amount'),
+            performance_constraint=attack_params.get('performance_constraint')
+        )
+    elif args.attack == 'pruning_finetune':
+        attack_params = config.get('attacks', 'pruning_finetune')
+        attacked_model = prune_and_finetune(
+            model,
+            pruning_amount=attack_params.get('pruning_amount'),
+            finetune_epochs=attack_params.get('finetune_epochs'),
+            learning_rate=attack_params.get('learning_rate'),
+            performance_constraint=attack_params.get('performance_constraint')
+        )
+    elif args.attack == 'model_extraction':
+        attack_params = config.get('attacks', 'model_extraction')
+        attacked_model = model_extraction(
+            model,
+            epochs=attack_params.get('epochs'),
+            learning_rate=attack_params.get('learning_rate'),
+            performance_constraint=attack_params.get('performance_constraint')
+        )
+    elif args.attack == 'adversarial_training':
+        attack_params = config.get('attacks', 'adversarial_training')
+        attacked_model = adversarial_training(
+            model,
+            epochs=attack_params.get('epochs'),
+            learning_rate=attack_params.get('learning_rate'),
+            performance_constraint=attack_params.get('performance_constraint'),
+            epsilon=attack_params.get('epsilon')
+        )
     else:
         raise ValueError("Unsupported attack type.")
 
-    # Save the attacked model if it meets performance constraints
     if attacked_model is not None:
-        save_model(attacked_model, attack_type, model_name)
+        save_model(attacked_model, args.attack, model_name)
     else:
         print("Attack resulted in model exceeding performance constraints. Model not saved.")
 

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from utils.data_loader import get_imagenet_data
+from utils.data_loader import get_cifar10_data #get_imagenet_data
 from utils.config import config
 
 
@@ -11,7 +11,7 @@ def finetune_model(model):
     learning_rate = attack_conf.get('learning_rate')
     performance_constraint = attack_conf.get('performance_constraint')
 
-    train_loader, test_loader = get_imagenet_data()
+    train_loader, test_loader = get_cifar10_data()
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 

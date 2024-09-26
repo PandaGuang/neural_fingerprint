@@ -16,7 +16,7 @@ def generate_fingerprint():
 
     if generation_method == 'random_noise':
         for i in range(num_samples):
-            noise = torch.randn(3, 224, 224)  # Random noise
+            noise = torch.randn(3, 32, 32)  # Random noise: [3, 224, 224] for imagenet
             fingerprint_data.append(noise)
             # Optionally save to disk
             # torchvision.utils.save_image(noise, os.path.join(save_dir, f'fingerprint_{i}.png'))

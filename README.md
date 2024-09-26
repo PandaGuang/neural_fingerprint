@@ -12,6 +12,9 @@ Neural Network Fingerprinting is a technique to protect the intellectual propert
 - **Fingerprint Verification**: Verify if a given model is the protected model or its attacked variants.
 - **Metrics Evaluation**: Assess the effectiveness of fingerprinting using relevant metrics.
 
+## Datasets
+- **CIFAR-10:** A dataset consisting of 60,000 32x32 color images in 10 classes, with 6,000 images per class.
+
 ## Configuration
 
 All configurable parameters are centralized in the `config.json` file located at the root of the project. This includes settings for data loading, model architectures, fingerprint generation, attack parameters, verification thresholds, and file paths.
@@ -68,7 +71,7 @@ python attack_models.py --model resnet50 --attack adversarial_training
 - ```--attack```: choose the attack type (```finetune```, ```pruning```, ```pruning_finetune```, ```model_extraction```, ```adversarial_training```)
 3. Verify a Model 
 ```bash
-python verify.py --model_path models/attacked/resnet50_finetune.pth
+python verify.py --model_path models/attacked/resnet18_finetune.pth
 ```
 **Process:**
 - The script loads fingerprint data and verification threshold from config.json.

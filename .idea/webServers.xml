@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e2fa168a-a8ba-4631-a0d4-fe6bcb14435c" name="yangg2@hickory.cs.vcu.edu">
+        <fileTransfer rootFolder="/home/yangg2/9. nn_fingerprint" accessType="SFTP" host="hickory.cs.vcu.edu" port="22" sshConfigId="41efb258-ab97-40c2-ae03-40ba88a3a347" sshConfig="yangg2@hickory.cs.vcu.edu:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
