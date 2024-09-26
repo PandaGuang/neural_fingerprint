@@ -1,0 +1,19 @@
+name: neural_fingerprint_env
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+dependencies:
+  - python=3.9
+  - pytorch
+  - torchvision
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - tqdm
+  - pip
+  - pip:
+      - foolbox
+      - cleverhans
+      - torchprune  # If available; otherwise, implement pruning manually
