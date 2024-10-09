@@ -71,7 +71,7 @@ python attack_models.py --model resnet50 --attack adversarial_training
 - ```--attack```: choose the attack type (```finetune```, ```pruning```, ```pruning_finetune```, ```model_extraction```, ```adversarial_training```)
 3. Verify a Model 
 ```bash
-python verify.py --model_path models/attacked/resnet18_finetune.pth
+python verify_onemodel.py --model_path models/attacked/resnet18_finetune.pth
 ```
 **Process:**
 - The script loads fingerprint data and verification threshold from config.json.

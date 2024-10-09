@@ -2,7 +2,7 @@ import argparse
 from utils.config import config
 from fingerprints.generate_fingerprint import generate_fingerprint
 from attack_models import main as attack_main
-from verify import main as verify_main
+from verify_onemodel import main as verify_main
 import sys
 
 def main():
@@ -30,8 +30,8 @@ def main():
         sys.argv = ['attack_models.py', '--model', args.model, '--attack', args.attack]
         attack_main()
     elif args.command == 'verify':
-        # Redirect arguments to verify.py
-        sys.argv = ['verify.py', '--model_path', args.model_path]
+        # Redirect arguments to verify_onemodel.py
+        sys.argv = ['verify_onemodel.py', '--model_path', args.model_path]
         verify_main()
     else:
         parser.print_help()

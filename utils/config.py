@@ -32,7 +32,7 @@ class Config:
             else:
                 logging.warning(f"Configuration key {'.'.join(keys)} not found. Using default: {default}")
                 return default
-        return cfg if cfg else default
+        return cfg if cfg is not None else default
 
 
 # Instantiate a global config object

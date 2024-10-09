@@ -3,7 +3,8 @@
     "dataset": "CIFAR10",
     "data_root": "data/cifar10",
     "batch_size": 128,
-    "num_workers": 4,
+    "num_workers": 1,
+    "num_classes": 10,
     "transforms": {
       "resize": 32,
       "center_crop": 32,
@@ -14,21 +15,44 @@
     }
   },
   "models": {
-    "architectures": ["vgg16", "resnet18", "densenet121"],
-    "independent_model_count": 5,
+    "architectures": ["resnet18"],
+    "independent_model_count": 10,
     "pretrained": false
+  },
+  "training": {
+    "epochs": 200,
+    "learning_rate": 0.001,
+    "optimizer": "adam",
+    "criterion": "cross_entropy",
+    "validation_split": 0.1,
+    "save_dir": "models/trained",
+    "early_stopping": {
+      "enabled": true,
+      "patience": 25
+    }
   },
   "fingerprint": {
     "num_samples": 100,
+    "num_fps": 20,
     "save_dir": "fingerprints",
     "target_class": 3,
-    "generation_method": "random_noise"
+    "generation_method": "adversarial_example",
+    "adversarial_attack": {
+      "epsilon": 0.05,
+      "num_steps": 100,
+      "step_size": 0.01
+    },
+    "optimized_random": {
+      "learning_rate": 0.01,
+      "num_iterations": 100,
+      "lambda_grad": 0.001}
   },
   "attacks": {
     "finetune": {
-      "epochs": 10,
-      "learning_rate": 0.0001,
-      "performance_constraint": 0.80
+      "epochs": 150,
+      "learning_rate": 0.001,
+      "performance_constraint": 0.80,
+      "interval": 5
     },
     "pruning": {
       "pruning_amount": 0.2,
@@ -56,7 +80,8 @@
     "threshold": 80.0
   },
   "paths": {
-    "attacked_models_dir": "models/attacked",
-    "fingerprint_file": "fingerprints/fingerprint.pt"
+    "trained_models_dir": "models/trained/",
+    "attacked_models_dir": "models/attacked/",
+    "fingerprint_dir": "models/fingerprints/"
   }
 }
