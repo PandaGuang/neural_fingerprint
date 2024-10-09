@@ -1,0 +1,6 @@
+1 pip install datasets
+2 huggingface-cli login
+3 click the link and agree the agreements
+4 python
+5 from datasets import load_dataset
+6 ds = load_dataset("imagenet-1k")

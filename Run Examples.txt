@@ -1,0 +1,13 @@
+Train models from scratch:
+	python3 train_meta_model.py
+
+Generate fingerprints for a specific model:
+	python3 generate_fingerprint.py --model resnet18 --pretrained False --seed 1
+
+Perform an attack to a specific model:
+	python3 attack_models.py --model resnet18 --pretrained False --seed 1 --attack finetune
+
+Verify models in a folder with fingerprints of a specific type:
+	python3 verify.py --model_name resnet18 --model_type trained (or attacked) --fingerprint_type adversarial_example (or optimized_random) --seed 1
+
+	The second argument is used to determine the models folder, and the rest of the arguments are used to determine the fingerprints file.
